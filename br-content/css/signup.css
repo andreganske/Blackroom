@@ -1,0 +1,18 @@
+body {
+	padding: 1em 4em;
+}
+
+header {
+	width: 100%;
+	padding: 10em 2em 2em 2em;
+	text-align: center;
+}
+
+form .field {
+	margin: 2em 0 !important;
+}
+
+form .submit {
+	width: 100%;
+	margin: 4em 0 !important;
+}
