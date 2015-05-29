@@ -1,13 +1,13 @@
 <?php
-// show potential errors / feedback (from login object)
-if (isset($login)) {
-    if ($login->errors) {
-        foreach ($login->errors as $error) {
+// show potential errors / feedback (from registration object)
+if (isset($registration)) {
+    if ($registration->errors) {
+        foreach ($registration->errors as $error) {
             echo $error;
         }
     }
-    if ($login->messages) {
-        foreach ($login->messages as $message) {
+    if ($registration->messages) {
+        foreach ($registration->messages as $message) {
             echo $message;
         }
     }
@@ -34,28 +34,33 @@ if (isset($login)) {
 <body>
     <article>
         <section>
-            <form method="post" action="<?php $_SERVER["PHP_SELF"]?>" name="registerform" class="ui form">
+
+            <!-- register form -->
+            <form class="ui form" method="post" action="register.php" name="registerform">
+
                 <h4 class="ui header center aligned">Cadastre-se</h4>
 
                 <div class="required field">
-                    <label for="login_input_name">meu nome</label>
-                    <input id="login_input_name" class="name_input" type="text" name="user_name" placeholder="Meu nome completo" required />
+                    <label for="login_input_username">Meu nome</label>
+                    <input id="login_input_username" class="login_input" type="text" name="user_name" placeholder="Meu nome completo" required />
                 </div>
 
                 <div class="required field">
-                    <label for="login_input_email">meu email</label>
+                    <label for="login_input_email">Email</label>
                     <div class="ui icon input">
-                        <input id="login_input_email" class="login_input" type="email" name="user_email" placeholder="Digite um email válido" required />
+                        <input id="login_input_email" class="login_input" type="email" name="user_email" required />
                         <i class="user icon"></i>
                     </div>
                 </div>
 
                 <div class="required field">
-                    <label for="login_input_password_new">minha senha</label>
-                    <div class="ui icon input">
-                        <input id="login_input_password_new" class="login_input" type="password" name="user_password" pattern=".{8,}" placeholder="Sua senha deve ter pelo menos 8 caracteres" required autocomplete="off" />
-                        <i class="lock icon"></i>
-                    </div>
+                    <label for="login_input_password_new">Password (min. 6 characters)</label>
+                    <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
+                </div>
+
+                <div class="required field">
+                    <label for="login_input_password_repeat">Repeat password</label>
+                    <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
                 </div>
 
                 <div class="field">
@@ -64,9 +69,14 @@ if (isset($login)) {
                         <label>Eu aceito os <a href="#"><b>Termos de Serviço</b></a>.</label>
                     </div>
                 </div>
-                
-                <input type="submit" class="ui submit positive button" name="register" value="Criar minha conta"/>
+
+                <input type="submit" name="register" class="ui submit positive button" value="Criar minha conta" />
+
             </form>
+
+            <!-- backlink -->
+            <a href="index.php">Back to Login Page</a>
+
         </section>
     </article>
 

@@ -1,11 +1,29 @@
 body {
-	padding: 1em 4em;
+	background-image: url("../images/bg.jpg");
+	margin: 0em;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	top: 0;
+
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	
+	border-radius: 0;
 }
 
-header {
-	width: 100%;
+article {
+	height: inherit;
+	width: inherit;
+	background: rgba(255, 255, 255, 0.65);
+}
+
+section {
+	float: right;
+	width: 50%;
 	padding: 10em 2em 2em 2em;
-	text-align: center;
 }
 
 form .field {

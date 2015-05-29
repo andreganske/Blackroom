@@ -28,8 +28,8 @@ $(document).ready(function() {
 				type   : 'empty',
 				prompt : 'Please enter your password'
 			},{
-				type   : 'length[8]',
-				prompt : 'Your password must be at least 8 characters'
+				type   : 'length[6]',
+				prompt : 'Your password must be at least 6 characters'
 			}]
 		},
 		terms: {
@@ -41,5 +41,22 @@ $(document).ready(function() {
 		}
 	};
 
-	$('.ui.form').form(validationRules, {on: 'blur'});
+	$('.ui.form').form(validationRules, {on: 'blur', onSuccess: 'submitForm'});
+
+	function submitForm() {
+		var formData = {
+			field1: getFieldValue('someId')
+		};
+
+		$.ajax({ type: 'POST', url: '/api/someRestEndpoint', data: formData, success: onFormSubmitted });
+	}
+
+	function getFieldValue(fieldId) {
+		return $('.ui.form').form('get field', fieldId).val();
+	}
+
+	function onFormSubmitted(response) {
+		// Do something with response ...
+	}
+
 });
