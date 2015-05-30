@@ -13,32 +13,32 @@ angular.module('blackroom', [
     $routeProvider
         .when('/login', {
             title: 'Login',
-            templateUrl: 'br-content/views/login.html',
+            templateUrl: 'views/login.html',
             controller: 'loginController'
         })
         .when('/logout', {
             title: 'Logout',
-            templateUrl: 'br-content/views/login.html',
+            templateUrl: 'views/login.html',
             controller: 'logoutCtrl'
         })
         .when('/signup', {
             title: 'Signup',
-            templateUrl: 'br-content/views/signup.html',
+            templateUrl: 'views/signup.html',
             controller: 'loginController'
         })
         .when('/dashboard', {
             title: 'Dashboard',
-            templateUrl: 'br-content/views/dashboard.html',
+            templateUrl: 'views/dashboard.html',
             controller: 'loginController'
         })
         .when('/', {
             title: 'Login',
-            templateUrl: 'br-content/views/login.html',
+            templateUrl: 'views/login.html',
             controller: 'loginController',
             role: '0'
         })
         .otherwise({
-            redirectTo: '/login'
+            redirectTo: '/'
         });	
 }])
 
