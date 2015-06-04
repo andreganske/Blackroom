@@ -9,27 +9,28 @@ Full of free technologies, this is a proff of concept to build a platform using 
 Used technologies:
 
 landing page
-  HTML5
-  CSS3
-  Twitter Bootstrap
-  Javascript
-  jQuery
-  plugin jQuery Easing
-  plugin Google Maps
+  * HTML5
+  * CSS3
+  * Twitter Bootstrap
+  * Javascript
+  * jQuery
+  * plugin jQuery Easing
+  * plugin Google Maps
 
 platform
-  HTML5
-  CSS3
-  Twitter Bootstrap
-  Javascript
-  jQuery
-  AngularJS
-  PHP
-  Slim PHP
-  plugin Angular Toater
-  plugin Angular Route
-  plugin Angular Animate
-  plugin Angular Loading Bar
-  plugin Angular Bootstrap UI
-  plugin Angular Utils
+  * HTML5
+  * CSS3
+  * Twitter Bootstrap
+  * Javascript
+  * jQuery
+  * AngularJS
+  * PHP
+  * Framework Slim PHP
+  * MySQL Database
+  * plugin Angular Toater
+  * plugin Angular Route
+  * plugin Angular Animate
+  * plugin Angular Loading Bar
+  * plugin Angular Bootstrap UI
+  * plugin Angular Utils
 
