@@ -13,27 +13,37 @@ angular.module('blackroom', [
     $routeProvider
         .when('/login', {
             title: 'Login',
-            templateUrl: 'views/login.html',
+            templateUrl: 'app/views/login.html',
             controller: 'loginController'
         })
         .when('/logout', {
             title: 'Logout',
-            templateUrl: 'views/login.html',
+            templateUrl: 'app/views/login.html',
             controller: 'logoutCtrl'
         })
         .when('/signup', {
             title: 'Signup',
-            templateUrl: 'views/signup.html',
+            templateUrl: 'app/views/signup.html',
             controller: 'loginController'
         })
         .when('/dashboard', {
             title: 'Dashboard',
-            templateUrl: 'views/dashboard.html',
-            controller: 'loginController'
+            templateUrl: 'app/views/dashboard.html',
+            controller: 'dashboardController'
+        })
+        .when('/gallery', {
+            title: 'gallery',
+            templateUrl: 'app/views/gallery.html',
+            controller: 'galleryController'
+        })
+        .when('/upload', {
+            title: 'Upload',
+            templateUrl: 'app/views/upload.html',
+            controller: 'uploadController'
         })
         .when('/', {
             title: 'Login',
-            templateUrl: 'views/login.html',
+            templateUrl: 'app/views/login.html',
             controller: 'loginController',
             role: '0'
         })
