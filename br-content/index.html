@@ -56,7 +56,7 @@
     	<div ng-view id="ng-view" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
 
 		<!-- include footer -->
-		<div ng-include="'app/views/partials/footer.html'"></div>
+		<div ng-include="'app/views/partials/footer.html'" ng-show="isLogged"></div>
     	
     </body>
 
