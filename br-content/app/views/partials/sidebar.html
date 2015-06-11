@@ -1,0 +1,7 @@
+<section id="sidebar" ng-init="navClass('dashboard')">
+    <ul class="sidebar-nav">
+		<li ng-repeat="navLink in navLinks" ng-class="navClass('{{navLink.linkText}}')">
+			<a href='#/{{navLink.linkText}}'>{{navLink.title}}</a>
+		</li>
+	</ul>
+</section>

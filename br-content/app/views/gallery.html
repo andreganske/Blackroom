@@ -1,0 +1,13 @@
+<section class="page-content container-fluid">
+    <div ng-include="'app/views/partials/gallery.html'"></div>
+
+    <ul>
+		<li ng-repeat="photo in photos">
+			<p>name: {{name}}</p>
+			<p>type: {{type}}</p>
+			<p>size: {{size}}</p>
+			<p>description: {{description}}</p>
+		</li>
+	</ul>
+
+</section>

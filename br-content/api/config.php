@@ -3,7 +3,7 @@
 	 * Database configuration
 	 */
 
-	/**
+	/*
 	define("DB_HOST", "mysql.hostinger.com.br");
 	define("DB_NAME", "u262814982_black");
 	define("DB_USERNAME", "u262814982_room");

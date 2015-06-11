@@ -13,21 +13,21 @@
 		<!-- Site Properities -->
 		<title>OTES02 - Organize seu portfolio</title>
 
-		<link rel="shortcut icon" href="br-content/images/favicon.png">
+		<link rel="shortcut icon" href="br-content/app/images/favicon.png">
 
 		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.css">
 		<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" media="all">
 		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css"/>
 
-		<link rel="stylesheet" type="text/css" href="css/loading-bar.css"/>
-		<link rel="stylesheet" type="text/css" href="css/blackroom.css">
+		<link rel="stylesheet" type="text/css" href="app/css/loading-bar.css"/>
+		<link rel="stylesheet" type="text/css" href="app/css/blackroom.css">
 
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-route.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-animate.min.js" ></script>
 
-		<script type="text/javascript" src="js/libs/loading-bar.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="app/js/libs/loading-bar.js"></script>
+		<script type="text/javascript" src="app/js/app.js"></script>
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]><link href= "css/bootstrap-theme.css"rel= "stylesheet">
@@ -45,7 +45,18 @@
 	        Please enable Javascript to experience this site :)
 	    </noscript>
 
-    	<div ng-view id="ng-view" class="slide-animation"></div>
+		<div ng-controller="headerController" ng-show="isLogged">
+			<!-- include sidebar -->
+			<div ng-include="'app/views/partials/sidebar.html'" ng-init="init()"></div>
+
+			<!-- include header -->
+			<div ng-include="'app/views/partials/header.html'"></div>
+		</div>
+
+    	<div ng-view id="ng-view" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
+
+		<!-- include footer -->
+		<div ng-include="'app/views/partials/footer.html'" ng-show="isLogged"></div>
     	
     </body>
 
@@ -53,25 +64,28 @@
 	
 	<link rel='stylesheet' type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,700">
 
-	<script type="text/javascript" src="//www.parsecdn.com/js/parse-1.3.3.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
 
 	<!-- Libs -->
-	<script type="text/javascript" src="js/libs/ui-bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/libs/ui-utils.min.js"></script>
+	<script type="text/javascript" src="app/js/libs/ui-bootstrap.min.js"></script>
+	<script type="text/javascript" src="app/js/libs/ui-utils.min.js"></script>
 
 	<!-- Data -->
-	<script type="text/javascript" src="js/data/data.js"></script>
+	<script type="text/javascript" src="app/js/data/data.js"></script>
 
 	<!-- Directives -->
-	<script type="text/javascript" src="js/directives/directives.js"></script>
+	<script type="text/javascript" src="app/js/directives/directives.js"></script>
 
 	<!-- Filters -->
-	<script type="text/javascript" src="js/filters/filters.js"></script>
+	<script type="text/javascript" src="app/js/filters/filters.js"></script>
 
 	<!-- controllers -->
-	<script type="text/javascript" src="js/controllers/login.js"></script>
+	<script type="text/javascript" src="app/js/controllers/login.js"></script>
+	<script type="text/javascript" src="app/js/controllers/dashboard.js"></script>
+	<script type="text/javascript" src="app/js/controllers/header.js"></script>
+	<script type="text/javascript" src="app/js/controllers/gallery.js"></script>
+	<script type="text/javascript" src="app/js/controllers/upload.js"></script>
 
 </html>
