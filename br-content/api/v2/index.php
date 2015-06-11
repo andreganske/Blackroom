@@ -1,6 +1,7 @@
 <?php
 
     require '.././libs/Slim/Slim.php';
+    require_once 'passwordHash.php';
     require_once 'dbHelper.php';
 
     \Slim\Slim::registerAutoloader();
@@ -9,15 +10,15 @@
 
     $db = new dbHelper();
 
-    $app->get('/br_album', function() {
+    $app->get('/photos', function() {
         global $db;
 
-        $rows = $db->select("br_album", "album_id", array());
+        $rows = $db->select("br_album", array(), array());
         
         echoResponse(200, $rows);
     });
 
-    $app->post('/br_album', function() use ($app) {
+    $app->post('/photos', function() use ($app) {
         global $db;
         
         $data = json_decode($app->request->getBody());
@@ -31,7 +32,7 @@
         echoResponse(200, $rows);
     });
 
-    $app->put('/br_album/:id', function($id) use ($app) {
+    $app->put('/photos/:id', function($id) use ($app) {
         global $db;
         
         $data = json_decode($app->request->getBody());
@@ -47,7 +48,7 @@
         echoResponse(200, $rows);
     });
 
-    $app->delete('/br_album/:id', function($id) {
+    $app->delete('/photos/:id', function($id) {
         global $db;
 
         $rows = $db->delete("br_album", array('id'=>$id));
@@ -59,11 +60,149 @@
         echoResponse(200, $rows);
     });
 
+    $app->get('/session', function() {
+
+        global $db;
+        $session = $db->getSession();
+
+        $response["uid"] = $session['uid'];
+        $response["email"] = $session['email'];
+        $response["name"] = $session['name'];
+
+        echoResponse(200, $session);
+    });
+
+    $app->post('/login', function() use ($app) {
+        require_once 'passwordHash.php';
+        $response = array();
+
+        $data = json_decode($app->request->getBody());
+        verifyRequiredParams(array('email', 'password'), $data->customer);
+        
+        global $db;
+        
+        $password = $data->customer->password;
+        $email = $data->customer->email;
+        $condition = array('email' => $email);
+
+        $query = $db->selectSize("br_customer", "customer_id, name, email, password, active", $condition, 1);
+
+        if ($query["status"] == "success") {
+            $user = $query["data"][0];
+
+            if (passwordHash::check_password($user['password'], $password)) {
+                $response['status'] = "success";
+                $response['message'] = 'Oba! Você entrou no Blackroom!';
+                $response['name'] = $user['name'];
+                $response['customer_id'] = $user['customer_id'];
+                $response['email'] = $user['email'];
+                $response['active'] = $user['active'];
+
+                if (!isset($_SESSION)) {
+                    session_start();
+                }
+
+                $_SESSION['uid'] = $user['customer_id'];
+                $_SESSION['email'] = $email;
+                $_SESSION['name'] = $user['name'];
+            } else {
+                $response['status'] = "error";
+                $response['message'] = 'Ooopsss! Parece que seu email ou senha estão incorretos.';
+            }
+        } elseif ($query["status"] == "warning") {
+            $response['status'] = "error";
+            $response['message'] = 'Vixi! Parece que você ainda não está registrado!';
+        } else {
+            $response['status'] = "error";
+            $response['message'] = 'Ooopsss!!! Ocorreu um erro grave no login!';
+        }
+
+        echoResponse(200, $response);
+    });
+
+    $app->post('/signUp', function() use ($app) {
+        require_once 'passwordHash.php';
+        
+        $response = array();
+        global $db;
+        $r = json_decode($app->request->getBody());
+        verifyRequiredParams(array('email', 'name', 'password'),$r->customer);
+
+
+        $name = $r->customer->name;
+        $email = $r->customer->email;
+        $password = $r->customer->password;
+        $isUserExists = $db->getOneRecord("select 1 from br_customer where email='$email'");
+
+        if (!$isUserExists) {
+            $r->customer->password = passwordHash::hash($password);
+            $tabble_name = "br_customer";
+            $column_names = array('name', 'email', 'password');
+            $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
+
+            if ($result != NULL) {
+                $response["status"] = "success";
+                $response["message"] = "User account created successfully";
+                $response["customer_id"] = $result;
+
+                if (!isset($_SESSION)) {
+                    session_start();
+                }
+
+                $_SESSION['uid'] = $response["customer_id"];
+                $_SESSION['name'] = $name;
+                $_SESSION['email'] = $email;
+
+                echoResponse(200, $response);
+            } else {
+                $response["status"] = "error";
+                $response["message"] = "Failed to create customer. Please try again";
+
+                echoResponse(201, $response);
+            }
+        } else {
+            $response["status"] = "error";
+            $response["message"] = "An user with the provided email exists!";
+            echoResponse(201, $response);
+        }
+    });
+
+    $app->get('/logout', function() {
+        global $db;
+        $session = $db->destroySession();
+        
+        $response["status"] = "info";
+        $response["message"] = "Estamos tristes que você saiu do Blackroom. Promete que volta logo?";
+
+        echoResponse(200, $response);
+    });
+
     function echoResponse($status_code, $response) {
         global $app;
         $app->status($status_code);
         $app->contentType('application/json');
         echo json_encode($response,JSON_NUMERIC_CHECK);
+    }
+
+    function verifyRequiredParams($required_fields,$request_params) {
+        $error = false;
+        $error_fields = "";
+
+        foreach ($required_fields as $field) {
+            if (!isset($request_params->$field) || strlen(trim($request_params->$field)) <= 0) {
+                $error = true;
+                $error_fields .= $field . ', ';
+            }
+        }
+
+        if ($error) {
+            $response = array();
+            $app = \Slim\Slim::getInstance();
+            $response["status"] = "error";
+            $response["message"] = 'Os campos ' . substr($error_fields, 0, -2) . ' são obrigatórios!';
+            echoResponse(200, $response);
+            $app->stop();
+        }
     }
 
     $app->run();

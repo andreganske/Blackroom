@@ -6,4 +6,8 @@ angular.module('blackroom')
 
     $rootScope.pageName = "Galeria de imagens";
 
+    Data.get('photos').then(function(data){
+    	$scope.photos = data.data;
+    });
+
 });

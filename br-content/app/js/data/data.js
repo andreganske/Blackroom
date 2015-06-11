@@ -5,7 +5,7 @@ angular.module('blackroom.data', [])
 .factory("Data", ['$http', 'toaster',
     function($http, toaster) {
 
-    	var serviceBase = 'api/v1/';
+    	var serviceBase = 'api/v2/';
     	var obj = {};
 
     	obj.toast = function(data) {
