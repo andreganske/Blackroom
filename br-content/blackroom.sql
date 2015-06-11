@@ -50,3 +50,10 @@ CREATE TABLE IF NOT EXISTS br_album_image (
 INSERT INTO br_customer (name, email, password, created) VALUES
 ('Blackroom Admin', 'admin@admin.com', 	 '$2a$10$72442f3d7ad44bcf1432cuAAZAURj9dtXhEMBQXMn9C8SpnZjmK1S', '2015-06-06 18:21:20'),
 ('Angular Admin', 	'angular@admin.com', '$2a$10$72442f3d7ad44bcf1432cuAAZAURj9dtXhEMBQXMn9C8SpnZjmK1S', '2015-06-06 21:00:26');
+
+INSERT INTO br_image (customer_id, name, type, size, description, content) VALUES
+(1, 'FOTO 01', 'JPG', '4', 'Uma foto inserida por script', 'bsdhsdhsdhsdhsdhsdh'),
+(1, 'FOTO 02', 'JPG', '5', 'Mais foto inserida por script', 'bsdhsdhsdhsdhsdhsdh'),
+(2, 'FOTO 03', 'JPG', '7', 'Olha foto inserida por script', 'bsdhsdhsdhsdhsdhsdh'),
+(2, 'FOTO 04', 'JPG', '6', 'Quer foto inserida por script', 'bsdhsdhsdhsdhsdhsdh');
+

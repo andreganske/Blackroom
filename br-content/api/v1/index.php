@@ -1,54 +1,48 @@
 <?php
 
-require_once 'dbHandler.php';
-require_once 'passwordHash.php';
-require '.././libs/Slim/Slim.php';
+    require_once 'dbHandler.php';
+    require_once 'passwordHash.php';
+    require '.././libs/Slim/Slim.php';
 
-\Slim\Slim::registerAutoloader();
+    \Slim\Slim::registerAutoloader();
+    $app = new \Slim\Slim();
 
-$app = new \Slim\Slim();
+    // User id from db - Global Variable
+    $user_id = NULL;
 
-// User id from db - Global Variable
-$user_id = NULL;
+    require_once 'authentication.php';
 
-require_once 'authentication.php';
+    function verifyRequiredParams($required_fields,$request_params) {
+        $error = false;
+        $error_fields = "";
 
-/**
- * Verifying required params posted or not
- */
-function verifyRequiredParams($required_fields,$request_params) {
-    $error = false;
-    $error_fields = "";
-    foreach ($required_fields as $field) {
-        if (!isset($request_params->$field) || strlen(trim($request_params->$field)) <= 0) {
-            $error = true;
-            $error_fields .= $field . ', ';
+        foreach ($required_fields as $field) {
+            if (!isset($request_params->$field) || strlen(trim($request_params->$field)) <= 0) {
+                $error = true;
+                $error_fields .= $field . ', ';
+            }
+        }
+
+        if ($error) {
+            $response = array();
+            $app = \Slim\Slim::getInstance();
+            $response["status"] = "error";
+            $response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
+
+            echoResponse(200, $response);
+
+            $app->stop();
         }
     }
 
-    if ($error) {
-        // Required field(s) are missing or empty
-        // echo error json and stop the app
-        $response = array();
+    function echoResponse($status_code, $response) {
         $app = \Slim\Slim::getInstance();
-        $response["status"] = "error";
-        $response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-        echoResponse(200, $response);
-        $app->stop();
+        $app->status($status_code);
+        $app->contentType('application/json');
+        
+        echo json_encode($response);
     }
-}
 
+    $app->run();
 
-function echoResponse($status_code, $response) {
-    $app = \Slim\Slim::getInstance();
-    // Http response code
-    $app->status($status_code);
-
-    // setting response content type to json
-    $app->contentType('application/json');
-
-    echo json_encode($response);
-}
-
-$app->run();
 ?>
