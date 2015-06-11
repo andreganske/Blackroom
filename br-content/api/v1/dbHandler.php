@@ -49,12 +49,12 @@
             }
 
             $sess = array();
-            if (isset($_SESSION['customer_id'])) {
-                $sess["customer_id"] = $_SESSION['customer_id'];
+            if (isset($_SESSION['uid'])) {
+                $sess["uid"] = $_SESSION['uid'];
                 $sess["name"] = $_SESSION['name'];
                 $sess["email"] = $_SESSION['email'];
             } else {
-                $sess["customer_id"] = '';
+                $sess["uid"] = '';
                 $sess["name"] = 'Guest';
                 $sess["email"] = '';
             }
@@ -67,8 +67,8 @@
                 session_start();
             }
 
-            if (isSet($_SESSION['customer_id'])) {
-                unset($_SESSION['customer_id']);
+            if (isSet($_SESSION['uid'])) {
+                unset($_SESSION['uid']);
                 unset($_SESSION['name']);
                 unset($_SESSION['email']);
 

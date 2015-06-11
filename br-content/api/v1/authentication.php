@@ -39,7 +39,7 @@
                     session_start();
                 }
 
-                $_SESSION['customer_id'] = $user['customer_id'];
+                $_SESSION['uid'] = $user['customer_id'];
                 $_SESSION['email'] = $email;
                 $_SESSION['name'] = $user['name'];
 
@@ -84,7 +84,7 @@
                     session_start();
                 }
 
-                $_SESSION['customer_id'] = $response["customer_id"];
+                $_SESSION['uid'] = $response["customer_id"];
                 $_SESSION['name'] = $name;
                 $_SESSION['email'] = $email;
 
