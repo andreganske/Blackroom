@@ -122,49 +122,54 @@
 
     $app->post('/signUp', function() use ($app) {
         require_once 'passwordHash.php';
-        
         $response = array();
+
+        $data = json_decode($app->request->getBody());
+        verifyRequiredParams(array('email', 'name', 'password'), $data->customer);
+        
         global $db;
-        $r = json_decode($app->request->getBody());
-        verifyRequiredParams(array('email', 'name', 'password'),$r->customer);
+        
+        $name = $data->customer->name;
+        $email = $data->customer->email;
+        $password = $data->customer->password;
+        
+        $obj = (object) array('name' => $name, 'email' => $email, 'password' => $password);
 
+        $mandatory = array('name', 'email', 'password');
+        $condition = array('email' => $email);
 
-        $name = $r->customer->name;
-        $email = $r->customer->email;
-        $password = $r->customer->password;
-        $isUserExists = $db->getOneRecord("select 1 from br_customer where email='$email'");
+        $query = $db->selectSize("br_customer", "customer_id", $condition, 1);
 
-        if (!$isUserExists) {
-            $r->customer->password = passwordHash::hash($password);
-            $tabble_name = "br_customer";
-            $column_names = array('name', 'email', 'password');
-            $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
+        if ($query["status"] == "success") {
 
-            if ($result != NULL) {
+            $response["status"] = "error";
+            $response["message"] = "Vixi! Esse email já está em uso por outro usuário!";
+
+        } elseif ($query["status"] == "warning") {
+            $obj->password = passwordHash::hash($password);
+            $result = $db->insert("br_customer", $obj, $mandatory);
+
+            if ($result["status"] == "success") {
                 $response["status"] = "success";
-                $response["message"] = "User account created successfully";
-                $response["customer_id"] = $result;
+                $response["message"] = "Olá, seja bem vindo! Seu usuário foi criado e já está disponível!";
 
                 if (!isset($_SESSION)) {
                     session_start();
                 }
 
-                $_SESSION['uid'] = $response["customer_id"];
+                $_SESSION['uid'] = $result["data"];
                 $_SESSION['name'] = $name;
                 $_SESSION['email'] = $email;
-
-                echoResponse(200, $response);
             } else {
                 $response["status"] = "error";
-                $response["message"] = "Failed to create customer. Please try again";
-
-                echoResponse(201, $response);
+                $response["message"] = "Ooopsss! Alguma coisa estranha aconteceu, e não conseguimos criar seu usuário!";
             }
         } else {
-            $response["status"] = "error";
-            $response["message"] = "An user with the provided email exists!";
-            echoResponse(201, $response);
+            $response['status'] = "error";
+            $response['message'] = 'Ooopsss!!! Ocorreu um erro grave no login!';
         }
+
+        echoResponse(200, $response);
     });
 
     $app->get('/logout', function() {
