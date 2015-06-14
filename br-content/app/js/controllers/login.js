@@ -9,6 +9,15 @@ angular.module('blackroom')
 
     $rootScope.isLogged = false;
 
+    $scope.init = function() {
+        Data.session().then(function(results) {
+            if (results.uid !== "") {
+                $rootScope.isLogged = true;
+                $location.path('dashboard');
+            }
+        });
+    };
+
     $scope.doLogin = function(customer) {
         Data.post('login', {customer: customer}).then(function(results) {
             Data.toast(results);
