@@ -4,6 +4,7 @@ angular.module('blackroom', [
 	'ngRoute',
 	'ngAnimate',
 	'toaster',
+    'ngFileUpload',
 	'blackroom.directives',
     'blackroom.filters',
     'blackroom.data'

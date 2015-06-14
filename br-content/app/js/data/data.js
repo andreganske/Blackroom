@@ -9,7 +9,7 @@ angular.module('blackroom.data', [])
     	var obj = {};
 
     	obj.toast = function(data) {
-    		toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
+    		toaster.pop(data.status, "", data.message, 5000, 'trustedHtml');
     	}
 
     	obj.get = function(q) {
@@ -35,6 +35,12 @@ angular.module('blackroom.data', [])
     			return results.data;
     		});
     	};
+
+        obj.session = function(q) {
+            return $http.get(serviceBase + "session").then(function(results) {
+                return results.data;
+            });
+        };
 
     	return obj;
 }]);
