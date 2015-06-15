@@ -10,11 +10,30 @@
 
     $db = new dbHelper();
 
+    $app->post('/upload', function() use ($app) {
+        global $db;
+        $response = array();
+
+        $response['message'] = 'to vivo!';
+
+        try {
+            $session = $db->getSession();
+/*
+            $filename = $_FILES['file']['name'];
+            $tags = $_POST['tags'];
+            $destination = '../user/' . $session['uid'] . '/uploads/'.$filename;
+            move_uploaded_file( $_FILES['file']['tmp_name'], $destination);*/
+        } catch (Exception $e) {
+            $response['status'] = "error";
+            $response['message'] = 'Ooopsss!!! Ocorreu um erro grave ao enviar as imagens :S';
+        }
+
+        echoResponse(200, $response);
+    });
+
     $app->get('/photos', function() {
         global $db;
-
-        $rows = $db->select("br_album", array(), array());
-        
+        $rows = $db->select("br_album", "*", array());
         echoResponse(200, $rows);
     });
 

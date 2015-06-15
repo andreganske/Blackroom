@@ -4,7 +4,7 @@ angular.module('blackroom', [
 	'ngRoute',
 	'ngAnimate',
 	'toaster',
-    'ngFileUpload',
+    'flow',
 	'blackroom.directives',
     'blackroom.filters',
     'blackroom.data'
@@ -58,11 +58,12 @@ angular.module('blackroom', [
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
         $rootScope.authenticated = false;
         Data.get('session').then(function (results) {
-            if (results.uid) {
-                $rootScope.authenticated = true;
+            if (results.uid !== undefined && results.uid !== "") {
                 $rootScope.uid = results.uid;
                 $rootScope.name = results.name;
                 $rootScope.email = results.email;
+
+                $rootScope.authenticated = true;
             } else {
                 var nextUrl = next.$$route.originalPath;
                 if (nextUrl != '/signup' && nextUrl != '/login') {
@@ -71,4 +72,5 @@ angular.module('blackroom', [
             }
         });
     });
+
 });

@@ -193,3 +193,8 @@ footer p {
 .dragover {
     border: 5px dashed blue;
 }
+
+#upload img {
+    width: 120px;
+}
+

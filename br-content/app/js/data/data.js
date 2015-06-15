@@ -2,8 +2,7 @@
 
 angular.module('blackroom.data', [])
 
-.factory("Data", ['$http', 'toaster',
-    function($http, toaster) {
+.factory("Data", ['$http', 'toaster', function($http, toaster) {
 
     	var serviceBase = 'api/v2/';
     	var obj = {};
@@ -35,12 +34,6 @@ angular.module('blackroom.data', [])
     			return results.data;
     		});
     	};
-
-        obj.session = function(q) {
-            return $http.get(serviceBase + "session").then(function(results) {
-                return results.data;
-            });
-        };
 
     	return obj;
 }]);
