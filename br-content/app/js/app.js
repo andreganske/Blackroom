@@ -3,11 +3,13 @@
 angular.module('blackroom', [
 	'ngRoute',
 	'ngAnimate',
+    'blackroom.directives',
+    'blackroom.filters',
+    'blackroom.data',
+    'angular-loading-bar',
+    'ui.bootstrap',
 	'toaster',
     'flow',
-	'blackroom.directives',
-    'blackroom.filters',
-    'blackroom.data'
     ])
 
 .config(['$routeProvider', 'flowFactoryProvider', function($routeProvider, flowFactoryProvider) {

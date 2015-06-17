@@ -48,6 +48,7 @@
             } catch(PDOException $e) {
                 $response["status"] = "error";
                 $response["message"] = 'Select Failed: ' .$e->getMessage();
+                $response["stmt"] = $stmt;
                 $response["data"] = null;
             }
             return $response;
@@ -160,7 +161,11 @@
                 $c = "";
 
                 foreach ($where as $key => $value) {
-                    $w .= " and " .$key. " = :".$key;
+                    if ($w != "") {
+                        $w .= " and " .$key. " = :".$key;    
+                    } else {
+                        $w .= " " .$key. " = :".$key;
+                    }
                     $a[":".$key] = $value;
                 }
 
@@ -183,6 +188,7 @@
                 }
             } catch(PDOException $e) {
                 $response["status"] = "error";
+                $response["stmt"] = $stmt;
                 $response["message"] = "Update Failed: " .$e->getMessage();
             }
             return $response;

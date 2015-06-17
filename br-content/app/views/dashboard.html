@@ -1,13 +1,16 @@
 <section class="page-content container-fluid">
 
-	<!-- include breadcrumb -->
-	<div ng-include="'app/views/partials/breadcrumb.html'"></div>
-
     <div class="welcome-text">
         <h4>Bem-vindo ao Blackroom, {{name}}</h4>
     </div>
 
-    <div ng-include="'app/views/partials/gallery.html'" ng-controller="galleryController" class="row main-gallery"></div>
+    <div class="row">
+    	<div class="col-md-5">
+    		<h4><a href="#/upload">Fazer upload de fotos</a></h4>
+    	</div>
 
-    <div ng-include="'app/views/partials/upload.html'" ng-controller="uploadController" class="row main-upload"></div>
+		<div class="col-md-5 col-md-offset-2">
+    		<h4><a href="#/gallery">Gerenciar meus albuns</a></h4>
+    	</div>
+    </div>
 </section>

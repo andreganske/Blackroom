@@ -10,52 +10,64 @@
 
     $db = new dbHelper();
 
-    $app->get('/photos', function() {
+    $app->get('/album', function() {
         global $db;
-        $rows = $db->select("br_album", "*", array());
-        echoResponse(200, $rows);
+
+        $user = $db->getSession();
+        $condition = array('customer_id'=>$user['uid']);
+        $response = $db->select("br_album", "album_id, name, description", $condition);
+
+        echoResponse(200, $response);
     });
 
-    $app->post('/photos', function() use ($app) {
+    $app->post('/album', function() use ($app) {
         global $db;
-        
-        $data = json_decode($app->request->getBody());
-        $mandatory = array('name');
-
-        $rows = $db->insert("br_album", $data, $mandatory);
-
-        if ($rows["status"] == "success") {
-            $rows["message"] = "Product added successfully.";
-        }
-        echoResponse(200, $rows);
-    });
-
-    $app->put('/photos/:id', function($id) use ($app) {
-        global $db;
-        
-        $data = json_decode($app->request->getBody());
-        $condition = array('id'=>$id);
         $mandatory = array();
         
-        $rows = $db->update("br_album", $data, $condition, $mandatory);
-        
-        if ($rows["status"] == "success") {
-            $rows["message"] = "Product information updated successfully.";
+        $user = $db->getSession();
+        $data = json_decode($app->request->getBody());
+        $data->customer_id = $user['uid'];
+
+        $response = $db->insert("br_album", $data, $mandatory);
+
+        if ($response["status"] == "success") {
+            $response["message"] = "Novo album criado com sucesso.";
         }
-        
-        echoResponse(200, $rows);
+
+        echoResponse(200, $response);
     });
 
-    $app->delete('/photos/:id', function($id) {
+    $app->put('/album/:id', function($id) use ($app) {
         global $db;
-
-        $rows = $db->delete("br_album", array('id'=>$id));
         
-        if ($rows["status"] == "success") {
-            $rows["message"] = "Product removed successfully.";            
+        $user = $db->getSession();
+        $data = json_decode($app->request->getBody());
+        
+        $condition = array('album_id'=>$id, 'customer_id'=>$user['uid']);
+        $mandatory = array();
+        
+        $response = $db->update("br_album", $data, $condition, $mandatory);
+        
+        if ($response["status"] == "success") {
+            $response["message"] = "Album atualizado com sucesso.";
         }
         
-        echoResponse(200, $rows);
+        echoResponse(200, $response);
+    });
+
+    $app->delete('/album/:id', function($id) {
+        global $db;
+
+        $user = $db->getSession();
+        $condition = array('album_id'=>$id, 'customer_id'=>$user['uid']);
+
+        $response = $db->delete("br_album", $condition);
+        
+        if ($response["status"] == "success") {
+            $response["message"] = "Album removido com sucesso.";            
+        }
+        
+        echoResponse(200, $response);
     });
 
     $app->get('/session', function() {
