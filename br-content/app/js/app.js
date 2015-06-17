@@ -3,13 +3,16 @@
 angular.module('blackroom', [
 	'ngRoute',
 	'ngAnimate',
-	'toaster',
-	'blackroom.directives',
+    'blackroom.directives',
     'blackroom.filters',
-    'blackroom.data'
+    'blackroom.data',
+    'angular-loading-bar',
+    'ui.bootstrap',
+	'toaster',
+    'flow',
     ])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', 'flowFactoryProvider', function($routeProvider, flowFactoryProvider) {
     $routeProvider
         .when('/login', {
             title: 'Login',
@@ -49,7 +52,19 @@ angular.module('blackroom', [
         })
         .otherwise({
             redirectTo: '/'
-        });	
+        });
+
+        flowFactoryProvider.defaults = {
+            target: 'api/v2/upload.php',
+            permanentErrors: [404, 500, 501],
+            maxChunkRetries: 3,
+            chunkRetryInterval: 5000,
+            simultaneousUploads: 4
+        };
+
+        flowFactoryProvider.on('catchAll', function (event) {
+            console.log('catchAll', arguments);
+        });
 }])
 
 .run(function($rootScope, $location, Data) {
@@ -57,11 +72,12 @@ angular.module('blackroom', [
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
         $rootScope.authenticated = false;
         Data.get('session').then(function (results) {
-            if (results.uid) {
-                $rootScope.authenticated = true;
+            if (results.uid !== undefined && results.uid !== "") {
                 $rootScope.uid = results.uid;
                 $rootScope.name = results.name;
                 $rootScope.email = results.email;
+
+                $rootScope.authenticated = true;
             } else {
                 var nextUrl = next.$$route.originalPath;
                 if (nextUrl != '/signup' && nextUrl != '/login') {
@@ -70,4 +86,5 @@ angular.module('blackroom', [
             }
         });
     });
+
 });

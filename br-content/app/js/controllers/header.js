@@ -8,7 +8,7 @@ angular.module('blackroom')
         title: 'Dashboard',
         linkText: 'dashboard',
     },{
-        title: 'Galeria',
+        title: 'Albuns',
         linkText: 'gallery'
     },{
         title: 'Incluir fotos',

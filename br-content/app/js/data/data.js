@@ -2,14 +2,13 @@
 
 angular.module('blackroom.data', [])
 
-.factory("Data", ['$http', 'toaster',
-    function($http, toaster) {
+.factory("Data", ['$http', 'toaster', function($http, toaster) {
 
     	var serviceBase = 'api/v2/';
     	var obj = {};
 
     	obj.toast = function(data) {
-    		toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
+    		toaster.pop(data.status, "", data.message, 5000, 'trustedHtml');
     	}
 
     	obj.get = function(q) {

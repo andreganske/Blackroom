@@ -180,3 +180,24 @@ footer p {
 .animate-enter.animate-enter-active {
     opacity: 1;
 }
+
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    height: 200px;
+    text-align: center;
+    padding-top: 25px;
+    margin: 10px;
+}
+
+.dragover {
+    border: 5px dashed blue;
+}
+
+#upload img {
+    width: 120px;
+}
+
+.loading {
+    background: url("../images/loader.gif") no-repeat fixed center;
+}

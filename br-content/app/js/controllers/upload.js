@@ -6,4 +6,5 @@ angular.module('blackroom')
 
     $rootScope.pageName = "Upload de imagens";
 
+
 });

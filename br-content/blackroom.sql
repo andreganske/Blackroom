@@ -51,6 +51,15 @@ INSERT INTO br_customer (name, email, password, created) VALUES
 ('Blackroom Admin', 'admin@admin.com', 	 '$2a$10$72442f3d7ad44bcf1432cuAAZAURj9dtXhEMBQXMn9C8SpnZjmK1S', '2015-06-06 18:21:20'),
 ('Angular Admin', 	'angular@admin.com', '$2a$10$72442f3d7ad44bcf1432cuAAZAURj9dtXhEMBQXMn9C8SpnZjmK1S', '2015-06-06 21:00:26');
 
+INSERT INTO br_album (customer_id, name, description) VALUES
+(1, 'formatura udesc 2015', 'Fotos para os convites dos formandos'),
+(1, 'formatura udesc 2015', 'Fotos da colação de grau'),
+(1, 'formatura udesc 2015', 'Fotos da entrada dos formandos'),
+(1, 'formatura udesc 2015', 'Fotos do baile'),
+(2, 'Casamento da maria e do jose', 'Fotos do último casamento'),
+(2, 'Casamento', 'Fotos do último casamento'),
+(2, 'Casamento', 'Fotos do último casamento');
+
 INSERT INTO br_image (customer_id, name, type, size, description, content) VALUES
 (1, 'FOTO 01', 'JPG', '4', 'Uma foto inserida por script', 'bsdhsdhsdhsdhsdhsdh'),
 (1, 'FOTO 02', 'JPG', '5', 'Mais foto inserida por script', 'bsdhsdhsdhsdhsdhsdh'),
