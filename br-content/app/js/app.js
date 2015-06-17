@@ -10,7 +10,7 @@ angular.module('blackroom', [
     'blackroom.data'
     ])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', 'flowFactoryProvider', function($routeProvider, flowFactoryProvider) {
     $routeProvider
         .when('/login', {
             title: 'Login',
@@ -50,7 +50,19 @@ angular.module('blackroom', [
         })
         .otherwise({
             redirectTo: '/'
-        });	
+        });
+
+        flowFactoryProvider.defaults = {
+            target: 'api/v2/upload.php',
+            permanentErrors: [404, 500, 501],
+            maxChunkRetries: 3,
+            chunkRetryInterval: 5000,
+            simultaneousUploads: 4
+        };
+
+        flowFactoryProvider.on('catchAll', function (event) {
+            console.log('catchAll', arguments);
+        });
 }])
 
 .run(function($rootScope, $location, Data) {

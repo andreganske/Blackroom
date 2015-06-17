@@ -198,3 +198,6 @@ footer p {
     width: 120px;
 }
 
+.loading {
+    background: url("../images/loader.gif") no-repeat fixed center;
+}
