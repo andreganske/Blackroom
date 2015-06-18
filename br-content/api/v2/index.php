@@ -135,7 +135,7 @@
 		$session = $db->destroySession();
 		
 		$response["status"] = "info";
-		$response["message"] = "Estamos tristes que você saiu do Blackroom. Promete que volta logo?";
+		$response["message"] = "Você saiu do Blackroom. Até breve!";
 
 		echoResponse(200, $response);
 	});
