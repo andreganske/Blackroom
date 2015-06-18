@@ -45,9 +45,9 @@
 	        Please enable Javascript to experience this site :)
 	    </noscript>
 
-		<div ng-controller="headerController" ng-show="authenticated" ng-show="admin">
+		<div ng-controller="headerController" ng-show="authenticated">
 			<!-- include sidebar -->
-			<div ng-include="'app/views/partials/sidebar.html'" ng-init="init()"></div>
+			<div ng-include="'app/views/partials/sidebar.html'" ng-init="init()" ng-show="admin"></div>
 
 			<!-- include header -->
 			<div ng-include="'app/views/partials/header.html'"></div>
