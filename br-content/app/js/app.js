@@ -50,6 +50,12 @@ angular.module('blackroom', [
 			controller: 'guestController',
 			role: '0'
 		})
+		.when('/guest', {
+			title: 'Login',
+			templateUrl: 'app/views/guest.html',
+			controller: 'guestController',
+			role: '0'
+		})
 		.when('/', {
 			title: 'Login',
 			templateUrl: 'app/views/login.html',
@@ -85,9 +91,11 @@ angular.module('blackroom', [
 				$rootScope.email = results.email;
 				
 				$rootScope.authenticated = true;
+				$rootScope.admin = true;
 
 				if (results.admin) {
-					$location.path("/myguests");
+					$rootScope.admin = false;
+					$location.path("/guest");
 				}
 			} else {
 				var nextUrl = next.$$route.originalPath;

@@ -5,7 +5,6 @@ angular.module('blackroom')
 .controller('guestController', function($scope, $rootScope, $routeParams, $location, $modal, $http, Data) {
 
     $rootScope.pageName = "Meus convidados";
-
     $scope.selection = [];
 
     $scope.toggle = function (guest) {
@@ -14,13 +13,30 @@ angular.module('blackroom')
 
 	$scope.init = function() {
 		$scope.getGuests();
+	};
+
+	$scope.initGuest = function() {
+		$scope.getHost();
+		$scope.getAlbuns();
+	}
+
+	$scope.getHost = function() {
+		Data.get('host').then(function (results){
+			$scope.userhost = results.data;
+		});
+	};
+
+	$scope.getAlbuns = function() {
+		Data.get('album').then(function (results){
+			$scope.albuns = results.data;
+		});
 	}
 
 	$scope.getGuests = function() {
 	    Data.get('guest').then(function (results){
 	    	$scope.guests = results.data;
 	    });
-	}
+	};
 
 	$scope.getSelected = function() {
 		$scope.selection = [];

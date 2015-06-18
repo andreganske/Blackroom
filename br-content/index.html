@@ -45,7 +45,7 @@
 	        Please enable Javascript to experience this site :)
 	    </noscript>
 
-		<div ng-controller="headerController" ng-show="authenticated">
+		<div ng-controller="headerController" ng-show="authenticated" ng-show="admin">
 			<!-- include sidebar -->
 			<div ng-include="'app/views/partials/sidebar.html'" ng-init="init()"></div>
 
@@ -56,7 +56,7 @@
     	<div ng-view id="ng-view" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
 
 		<!-- include footer -->
-		<div ng-include="'app/views/partials/footer.html'" ng-show="authenticated"></div>
+		<div ng-include="'app/views/partials/footer.html'" ng-show="authenticated" ng-show="admin"></div>
     	
     </body>
 

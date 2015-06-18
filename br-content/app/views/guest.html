@@ -1,0 +1,11 @@
+<section class="container-fluid guest-bg" id="guest" ng-init="initGuest()">
+
+	<h3>Bem vindo à area restrita do Blackroom! <br><small>Você foi convidado por {{userhost.name}}</small></h3>
+
+	<div class="col-md-10 com-md-offset-1">
+		<ul class="table">
+			<li class="album" ng-repeat="album in albuns" ng-click="toggle(album)"></li>
+		</ul>
+	</div>
+
+</section>
