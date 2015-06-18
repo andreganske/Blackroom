@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS br_image (
 	name varchar(50) NOT NULL,
 	type varchar(30) NOT NULL,
 	size int NOT NULL,
+    path varchar(50) NOT NULL,
 	description varchar(250) NOT NULL,
-	content BLOB NOT NULL,
 	created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (image_id),
 	FOREIGN KEY (customer_id) REFERENCES br_customer(customer_id)
