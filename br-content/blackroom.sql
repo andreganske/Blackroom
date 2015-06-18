@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS br_album (
     customer_id int(11),
     name varchar(50) NOT NULL,
     description varchar(250) NOT NULL,
+    active bool NOT NULL DEFAULT true,
+    admin bool NOT NULL DEFAULT true,
     PRIMARY KEY (album_id),
 	FOREIGN KEY (customer_id) REFERENCES br_customer(customer_id)
     ON DELETE CASCADE
