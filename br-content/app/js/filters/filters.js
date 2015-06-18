@@ -29,4 +29,14 @@ angular.module('blackroom.filters', [])
 		});
 		return output;
 	};
+})
+
+.filter('filterActive', function() {
+	return function(status) {
+		if (status === 1) {
+			return "Ativo";
+		} else {
+			return "Inativo";
+		}
+	};
 });

@@ -10,66 +10,9 @@
 
     $db = new dbHelper();
 
-    $app->get('/album', function() {
-        global $db;
-
-        $user = $db->getSession();
-        $condition = array('customer_id'=>$user['uid']);
-        $response = $db->select("br_album", "album_id, name, description", $condition);
-
-        echoResponse(200, $response);
-    });
-
-    $app->post('/album', function() use ($app) {
-        global $db;
-        $mandatory = array();
-        
-        $user = $db->getSession();
-        $data = json_decode($app->request->getBody());
-        $data->customer_id = $user['uid'];
-
-        $response = $db->insert("br_album", $data, $mandatory);
-
-        if ($response["status"] == "success") {
-            $response["message"] = "Novo album criado com sucesso.";
-        }
-
-        echoResponse(200, $response);
-    });
-
-    $app->put('/album/:id', function($id) use ($app) {
-        global $db;
-        
-        $user = $db->getSession();
-        $data = json_decode($app->request->getBody());
-        
-        $condition = array('album_id'=>$id, 'customer_id'=>$user['uid']);
-        $mandatory = array();
-        
-        $response = $db->update("br_album", $data, $condition, $mandatory);
-        
-        if ($response["status"] == "success") {
-            $response["message"] = "Album atualizado com sucesso.";
-        }
-        
-        echoResponse(200, $response);
-    });
-
-    $app->delete('/album/:id', function($id) {
-        global $db;
-
-        $user = $db->getSession();
-        $condition = array('album_id'=>$id, 'customer_id'=>$user['uid']);
-
-        $response = $db->delete("br_album", $condition);
-        
-        if ($response["status"] == "success") {
-            $response["message"] = "Album removido com sucesso.";            
-        }
-        
-        echoResponse(200, $response);
-    });
-
+/** 
+ Gestao de usuário 
+ */
     $app->get('/session', function() {
 
         global $db;
@@ -192,6 +135,175 @@
         echoResponse(200, $response);
     });
 
+/** 
+ Album
+ */
+    $app->get('/album', function() {
+        global $db;
+
+        $user = $db->getSession();
+        $condition = array('customer_id'=>$user['uid']);
+        $response = $db->select("br_album", "album_id, name, description", $condition);
+
+        echoResponse(200, $response);
+    });
+
+    $app->post('/album', function() use ($app) {
+        global $db;
+        $mandatory = array();
+        
+        $user = $db->getSession();
+        $data = json_decode($app->request->getBody());
+        $data->customer_id = $user['uid'];
+
+        $response = $db->insert("br_album", $data, $mandatory);
+
+        if ($response["status"] == "success") {
+            $response["message"] = "Novo album criado com sucesso.";
+        }
+
+        echoResponse(200, $response);
+    });
+
+    $app->put('/album/:id', function($id) use ($app) {
+        global $db;
+        
+        $user = $db->getSession();
+        $data = json_decode($app->request->getBody());
+        
+        $condition = array('album_id'=>$id, 'customer_id'=>$user['uid']);
+        $mandatory = array();
+        
+        $response = $db->update("br_album", $data, $condition, $mandatory);
+        
+        if ($response["status"] == "success") {
+            $response["message"] = "Album atualizado com sucesso.";
+        }
+        
+        echoResponse(200, $response);
+    });
+
+    $app->delete('/album/:id', function($id) {
+        global $db;
+
+        $user = $db->getSession();
+        $condition = array('album_id'=>$id, 'customer_id'=>$user['uid']);
+
+        $response = $db->delete("br_album", $condition);
+        
+        if ($response["status"] == "success") {
+            $response["message"] = "Album removido com sucesso.";            
+        }
+        
+        echoResponse(200, $response);
+    });
+
+    $app->get('/photo', function() {
+        global $db;
+
+        $user = $db->getSession();
+        $condition = array('customer_id'=>$user['uid']);
+        $response = $db->select("br_image", "image_id, name, description, path", $condition);
+
+        echoResponse(200, $response);
+    });
+
+/** 
+ Guest
+ */
+    $app->get('/guest', function() {
+        global $db;
+
+        $user = $db->getSession();
+        $condition = array('admin_id'=>$user['uid']);
+        $response = $db->select("br_customer", "customer_id, name, email, active", $condition);
+
+        echoResponse(200, $response);
+    });
+
+    $app->post('/guest', function() use ($app) {
+        require_once 'passwordHash.php';
+        $response = array();
+
+        $data = json_decode($app->request->getBody());
+        verifyRequiredParams(array('email', 'name', 'password'), $data->guest);
+        
+        global $db;
+        
+        $name = $data->guest->name;
+        $email = $data->guest->email;
+        $password = $data->guest->password;
+
+        $user = $db->getSession();
+        $admin_id = $user['uid'];
+        
+        $obj = (object) array('name' => $name, 'email' => $email, 'password' => $password, 'admin_id' => $admin_id);
+
+        $mandatory = array('name', 'email', 'password');
+        $condition = array('email' => $email);
+
+        $query = $db->selectSize("br_customer", "customer_id", $condition, 1);
+
+        if ($query["status"] == "success") {
+
+            $response["status"] = "error";
+            $response["message"] = "Vixi! Esse email já está em uso por outro usuário!";
+
+        } elseif ($query["status"] == "warning") {
+            $obj->password = passwordHash::hash($password);
+            $result = $db->insert("br_customer", $obj, $mandatory);
+
+            if ($result["status"] == "success") {
+                $response["status"] = "success";
+                $response["message"] = "Oba! Seu convidado foi criado e já está disponível!";
+            } else {
+                $response["status"] = "error";
+                $response["message"] = "Ooopsss! Alguma coisa estranha aconteceu, e não conseguimos criar seu convidado!";
+            }
+        } else {
+            $response['status'] = "error";
+            $response['message'] = 'Ooopsss!!! Ocorreu um erro grave ao criar um novo convidado!';
+        }
+
+        echoResponse(200, $response);
+    });
+
+    $app->put('/guest/:id', function($id) use ($app) {
+        global $db;
+        
+        $user = $db->getSession();
+        $data = json_decode($app->request->getBody());
+        
+        $condition = array('customer_id'=>$id, 'admin_id'=>$user['uid']);
+        $mandatory = array();
+        
+        $response = $db->update("br_customer", $data, $condition, $mandatory);
+        
+        if ($response["status"] == "success") {
+            $response["message"] = "Convidado atualizado com sucesso.";
+        }
+        
+        echoResponse(200, $response);
+    });
+
+    $app->delete('/guest/:id', function($id) {
+        global $db;
+
+        $user = $db->getSession();
+        $condition = array('customer_id'=>$id, 'admin_id'=>$user['uid']);
+
+        $response = $db->delete("br_customer", $condition);
+        
+        if ($response["status"] == "success") {
+            $response["message"] = "Convidado removido com sucesso.";            
+        }
+        
+        echoResponse(200, $response);
+    });
+
+/** 
+ Utils
+ */
     function echoResponse($status_code, $response) {
         global $app;
         $app->status($status_code);
@@ -221,5 +333,6 @@
     }
 
     $app->run();
-
 ?>
+
+

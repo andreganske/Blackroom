@@ -1,15 +1,27 @@
-<section flow-init id="upload" class="col-md-11">
-	<h4>Aqui vai aparecer a seção de upload</h4>
+<section flow-init id="upload" class="row" ng-init="init()">
 	
-	<div class="row" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()">
+	<h3>Minhas imagens <small>gerencie suas imagens</small></h3>
 
-		<div class="row">
-			<div class="alert" flow-drop flow-drag-enter="class='alert-success'" flow-drag-leave="class=''" ng-class="class">
-				Arraste suas fotos para cá!
+	<div class="row">
+		<div class="pull-right col-md-4">
+			<div class="form-group">
+				<input type="search" ng-model="q" placeholder="Buscar" class="form-control" id="search_label">
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="col-md-6">
+			<button class="btn btn-success" ng-click="new()">Selecionar imagem</button>
+			<button class="btn btn-default" ng-click="edit()">Editar propriedades</button>
+			<button class="btn btn-default" ng-click="delete()">Deletar selecionados</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()">
+			<div class="drop-box alert" flow-drop flow-drag-enter="class='alert-success dragover'" flow-drag-leave="class=''" ng-class="class">
+				<h3 class="text-center drop-title">Arraste suas fotos para cá!<br><small>somente aquivos dos tipos PNG, GIF e JPG são suportados!</small></h3>
+			</div>
+			
 			<table class="table table-hover table-striped" flow-transfers>
 				<tr ng-repeat="file in transfers">
 					<td>{{$index+1}}</td>
@@ -17,7 +29,20 @@
 					<td>{{file.name}}</td>
 				</tr>
 			</table>
+			
 		</div>
-		<p>Somente aquivos dos tipos PNG, GIF e JPG são suportados.</p>
+	</div>
+
+	<div class="row" id="image-list">
+		<div class="col-md-12 table-responsive">
+			<table class="table table-hover">
+				<tr ng-repeat="photo in photos | filter:q as results" ng-click="toggle(photo)">
+					<td><input ng-model="photo.selected" type="checkbox" ng-click="toggle(photo)"></td>
+					<td class="col-md-5">{{photo.name}}</td>
+					<td class="col-md-7">{{photo.description}}</td>
+					<td><img src="{{photo.path}}"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </section>

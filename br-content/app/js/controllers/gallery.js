@@ -4,7 +4,8 @@ angular.module('blackroom')
 
 .controller('galleryController', function($scope, $rootScope, $routeParams, $location, $modal, $http, Data) {
 
-    $rootScope.pageName = "Albuns";
+    $rootScope.pageName = "Meus albuns";
+
     $scope.selection = [];
 
     $scope.toggle = function (album) {

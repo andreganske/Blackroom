@@ -25,11 +25,7 @@
 
 html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 
-body { 
-	font-size: 14px;
-	font-family: 'Raleway', Arial, sans-serif;
-	font-weight: 500;
-}
+body { font-size: 14px; font-family: 'Raleway', Arial, sans-serif; font-weight: 500; }
 
 h1,h2,h3,h4,h5,h6 { font-family: inherit; margin-top: 0px; }
 
@@ -39,33 +35,19 @@ h4,h5,h6 { font-weight: 700; }
 
 h6 { text-transform: uppercase; }
 
-h1 { font-size: 70px; }
-h2 { font-size: 55px; }
-h3 { font-size: 45px; }
-h4 { font-size: 28px; }
-h5 { font-size: 16px; }
-h6 { font-size: 11px; }
+h1 { font-size: 70px; margin-bottom: 32px; }
+h2 { font-size: 55px; margin-bottom: 30px; }
+h3 { font-size: 45px; margin-bottom: 24px; }
+h4 { font-size: 28px; margin-bottom: 20px; }
+h5 { font-size: 16px; margin-bottom: 18px; }
+h6 { font-size: 11px; margin-bottom: 11px; }
 
-h1 { margin-bottom: 32px; }
-h2 { margin-bottom: 30px; }
-h3 { margin-bottom: 24px; }
-h4 { margin-bottom: 20px; }
-h5 { margin-bottom: 18px; }
-h6 { margin-bottom: 11px; }
+section #album { margin-right: 2em !important; }
+section #upload { margin-right: 2em !important; }
+section #myguests { margin-right: 2em !important; }
 
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: right;
-    background: #999999;
-}
-
-footer p {
-    padding: 10px;
-    margin: 0;
-}
+footer { position: fixed; left: 0; bottom: 0; width: 100%; text-align: right; background: #999999; }
+footer p { padding: 10px; margin: 0; }
 
 .light-text { font-weight: 300; }
 .heavy-text { font-weight: 700; }
@@ -182,22 +164,35 @@ footer p {
 }
 
 .drop-box {
-    background: #F8F8F8;
+    height: 250px;
+    background: #EAEAEA;
     border: 5px dashed #DDD;
-    height: 200px;
     text-align: center;
     padding-top: 25px;
     margin: 10px;
 }
 
 .dragover {
-    border: 5px dashed blue;
+    border: 5px dashed;
+}
+
+.drop-title {
+    padding: 1.3em 0;
+}
+
+.drop-title small {
+    font-size: 20px;
 }
 
 #upload img {
     width: 120px;
 }
 
+#image-list {
+    padding-bottom: 5em;
+}
+
 .loading {
     background: url("../images/loader.gif") no-repeat fixed center;
 }
+

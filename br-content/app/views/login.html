@@ -6,29 +6,31 @@
 
         <div class="row">
             <form name="loginForm" class="form-horizontal blackroom-light" role="form">
+
                 <div class="form-group">
-                    <label class="col-md-3 control-label no-padding-right" for="email"> Email </label>
+                    <label class="col-md-3 control-label no-padding-right" for="email">email</label>
                     <div class="col-md-6">
                         <span class="block input-icon input-icon-right">
-                            <input type="text" class="form-control" placeholder="email" name="email" ng-model="login.email" required focus/>
-                            <i class="ace-icon fa fa-user"></i>
+                            <input type="text" class="form-control" placeholder="seu email" name="email" ng-model="login.email" focus/>
+                            <span ng-show="loginForm.email.$error.email" class="help-inline">Email inválido</span> 
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-3 control-label no-padding-right" for="password"> Senha </label>
+                    <label class="col-md-3 control-label no-padding-right" for="password">senha</label>
                     <div class="col-md-6">
                         <span class="block input-icon input-icon-right">
-                            <input type="password" class="form-control" placeholder="senha" ng-model="login.password" required/>
+                            <input type="password" class="form-control" placeholder="sua senha" ng-model="login.password"/>
                             <i class="ace-icon fa fa-lock"></i>
+                            <small class="errorMessage" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">Digite sua senha.</small>
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-3">
-                        <button type="submit" class="btn btn-blackroom" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid"><i class="ace-icon fa fa-key"></i>Entrar</button>
+                        <button type="submit" class="btn btn-blackroom" ng-click="doLogin(login)" ng-disabled="loginForm.$invalid"><i class="ace-icon fa fa-key"></i>Entrar</button>
                         
                         <p>Ainda não tem uma conta? <a href="#/signup">Não perca mais tempo!</a></p>
                     </div>
