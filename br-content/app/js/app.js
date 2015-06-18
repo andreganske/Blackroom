@@ -82,8 +82,13 @@ angular.module('blackroom', [
 				$rootScope.uid = results.uid;
 				$rootScope.name = results.name;
 				$rootScope.email = results.email;
-
+				$rootScope.email = results.email;
+				
 				$rootScope.authenticated = true;
+
+				if (results.admin) {
+					$location.path("/myguests");
+				}
 			} else {
 				var nextUrl = next.$$route.originalPath;
 				if (nextUrl != '/signup' && nextUrl != '/login') {

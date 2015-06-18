@@ -22,7 +22,12 @@
         $response["email"] = $session['email'];
         $response["name"] = $session['name'];
 
-        echoResponse(200, $session);
+        if ($session['uid'] != "") {
+            $data = $db->selectSize("br_customer", "admin_id", array('customer_id' => $session['uid']), 1);
+            $response["admin"] = $data['data'][0]['admin_id'];
+        }
+        
+        echoResponse(200, $response);
     });
 
     $app->post('/login', function() use ($app) {
@@ -198,6 +203,9 @@
         echoResponse(200, $response);
     });
 
+/** 
+ Photo
+ */
     $app->get('/photo', function() {
         global $db;
 
