@@ -17,7 +17,7 @@ angular.module('blackroom')
 
 	$scope.initGuest = function() {
 		$scope.getHost();
-		$scope.getAlbuns();
+		$scope.getUserImages();
 	}
 
 	$scope.getHost = function() {
@@ -31,6 +31,12 @@ angular.module('blackroom')
 			$scope.albuns = results.data;
 		});
 	}
+
+    $scope.getUserImages = function() {
+	    Data.get('guest/photos').then(function (results){
+	    	$scope.photos = results.data;
+	    });
+    }
 
 	$scope.getGuests = function() {
 	    Data.get('guest').then(function (results){

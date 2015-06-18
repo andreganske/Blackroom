@@ -216,6 +216,19 @@
 		echoResponse(200, $response);
 	});
 
+	$app->get('/guest/photos', function() {
+		global $db;
+
+		$user = $db->getSession();
+		$data = $db->selectSize("br_customer", "admin_id", array('customer_id' => $user['uid']), 1);
+		$admin = $data['data'][0]['admin_id'];
+
+		$condition = array('customer_id'=>$admin);
+		$response = $db->select("br_image", "image_id, name, description, path", $condition);
+
+		echoResponse(200, $response);
+	});
+
 /** 
  Guest
  */
