@@ -5,14 +5,17 @@ angular.module('blackroom')
 .controller('headerController', function($scope, $rootScope, $location) {
 
    $scope.navLinks = [{
-        title: 'Dashboard',
+        title: 'Painel de controle',
         linkText: 'dashboard',
     },{
-        title: 'Albuns',
+        title: 'Meus albuns',
         linkText: 'gallery'
     },{
-        title: 'Incluir fotos',
+        title: 'Minhas imagens',
         linkText: 'upload'
+    },{
+        title: 'Convidados',
+        linkText: 'myguests'
     }];
 
     $scope.navClass = function(page) {

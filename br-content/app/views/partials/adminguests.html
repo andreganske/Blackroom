@@ -1,0 +1,82 @@
+<section id="myguests" class="row" ng-init="init()">
+
+	<h3>Meus convidados<small><br>convide seus clientes para ter acesso restrito aos seus albuns e fotos</small></h3>
+
+	<div class="row">
+		<div class="pull-right col-md-4">
+			<div class="form-group">
+				<input type="search" ng-model="q" placeholder="Buscar" class="form-control" id="search_label">
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<button class="btn btn-success" ng-click="create()">Novo convidado</button>
+			<button class="btn btn-default" ng-click="update()">Editar</button>
+			<button class="btn btn-default" ng-click="delete()">Deletar selecionados</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12 table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Descrição</th>
+						<th>Ativo</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="guest in guests | filter:q as results" ng-class="{success: guest.active}" ng-click="toggle(guest)">
+						<td><input ng-model="guest.selected" type="checkbox" ng-click="toggle(guest)"></td>
+						<td class="col-md-5">{{guest.name}}</td>
+						<td class="col-md-5">{{guest.email}}</td>
+						<td class="col-md-2">{{guest.active}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+<!-- templates -->
+<script type="text/ng-template" id="guest.html">
+    <div class="modal-header">
+        <h4 class="modaltitle">{{modal_title}}</h4>
+    </div>
+    
+    <div class="modal-body">
+    	<form name="guestForm" role="form">
+			<div class="form-group">
+            	<label for="name">nome</label>
+            	<input type="text" class="form-control" placeholder="nome completo" ng-model="guest.name" />
+            </div>
+
+            <div class="form-group">
+                <label for="login">login</label>
+                <input type="text" class="form-control" placeholder="login do convidado" name="login" ng-model="guest.email" focus/>
+                <span ng-show="guestForm.login.$error.login" class="help-inline">login inválido</span> 
+            </div>
+
+            <div class="form-group">
+            	<label for="password">senha</label>
+            	<input type="password" class="form-control" name = "password" placeholder="senha com no mínimo 6 caracteres" ng-model="guest.password" required/>
+            	<small class="errorMessage" ng-show="guestForm.password.$dirty && guestForm.password.$invalid">Digite sua senha.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="password2">confirme a senha</label>
+                <input type="password" class="form-control" name="password2" placeholder="confirme sua senha" ng-model="guest.password2" password-match="guest.password" required/>
+                <small class="errorMessage" ng-show="guestForm.password2.$dirty && guestForm.password2.$error.required">Digite sua senha novamente.</small>
+                <small class="errorMessage" ng-show="guestForm.password2.$dirty && guestForm.password2.$error.passwordNoMatch && !guestForm.password2.$error.required">Ops... as senhas não combinam</small>
+            </div>
+		</form>
+    </div>
+
+    <div class="modal-footer">
+        <input type="button" class="btn btn-primary" ng-click="handleSaveButton()" value="Confirmar">
+        <input type="button" class="btn btn-default" ng-click="cancel()" value="Cancelar">
+    </div>
+</script>

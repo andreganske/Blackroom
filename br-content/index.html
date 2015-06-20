@@ -47,7 +47,7 @@
 
 		<div ng-controller="headerController" ng-show="authenticated">
 			<!-- include sidebar -->
-			<div ng-include="'app/views/partials/sidebar.html'" ng-init="init()"></div>
+			<div ng-include="'app/views/partials/sidebar.html'" ng-init="init()" ng-show="admin"></div>
 
 			<!-- include header -->
 			<div ng-include="'app/views/partials/header.html'"></div>
@@ -56,11 +56,11 @@
     	<div ng-view id="ng-view" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
 
 		<!-- include footer -->
-		<div ng-include="'app/views/partials/footer.html'" ng-show="authenticated"></div>
+		<div ng-include="'app/views/partials/footer.html'" ng-show="authenticated" ng-show="admin"></div>
     	
     </body>
 
-    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+    <toaster-container toaster-options="{'time-out': 3000, 'position-class': 'toast-top-center'}"></toaster-container>
 	
 	<link rel='stylesheet' type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:400,300,700">
 
@@ -88,5 +88,6 @@
 	<script type="text/javascript" src="app/js/controllers/header.js"></script>
 	<script type="text/javascript" src="app/js/controllers/gallery.js"></script>
 	<script type="text/javascript" src="app/js/controllers/upload.js"></script>
+	<script type="text/javascript" src="app/js/controllers/guest.js"></script>
 
 </html>

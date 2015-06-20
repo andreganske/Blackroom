@@ -1,35 +1,31 @@
 /*******************************
-            Global
+			Global
 *******************************/
 
 /*
-    Blackroom color scheme
+	Blackroom color scheme
 
-    blackroom-light-red: #b20000;
-    blackroom-red: #7f0000;
-    blackroom-dark-red: #660000;
+	blackroom-light-red: #b20000;
+	blackroom-red: #7f0000;
+	blackroom-dark-red: #660000;
 
-    blackroom-light: #f7b059;
-    blackroom: #f78859;
-    blackroom-dark: #f76159;
+	blackroom-light: #f7b059;
+	blackroom: #f78859;
+	blackroom-dark: #f76159;
 
-    blackroom-white: #fff;
-    blackroom-black: #000;
+	blackroom-white: #fff;
+	blackroom-black: #000;
 
-    blackroom-lighter-grey: #EAEAEA;
-    blackroom-light-grey: #999999;
-    blackroom-medium-grey: #757575;
-    blackroom-dark-grey: #303030;
+	blackroom-lighter-grey: #EAEAEA;
+	blackroom-light-grey: #999999;
+	blackroom-medium-grey: #757575;
+	blackroom-dark-grey: #303030;
 
 */
 
 html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 
-body { 
-	font-size: 14px;
-	font-family: 'Raleway', Arial, sans-serif;
-	font-weight: 500;
-}
+body { font-size: 14px; font-family: 'Raleway', Arial, sans-serif; font-weight: 500; }
 
 h1,h2,h3,h4,h5,h6 { font-family: inherit; margin-top: 0px; }
 
@@ -39,33 +35,19 @@ h4,h5,h6 { font-weight: 700; }
 
 h6 { text-transform: uppercase; }
 
-h1 { font-size: 70px; }
-h2 { font-size: 55px; }
-h3 { font-size: 45px; }
-h4 { font-size: 28px; }
-h5 { font-size: 16px; }
-h6 { font-size: 11px; }
+h1 { font-size: 70px; margin-bottom: 32px; }
+h2 { font-size: 55px; margin-bottom: 30px; }
+h3 { font-size: 45px; margin-bottom: 24px; }
+h4 { font-size: 28px; margin-bottom: 20px; }
+h5 { font-size: 16px; margin-bottom: 18px; }
+h6 { font-size: 11px; margin-bottom: 11px; }
 
-h1 { margin-bottom: 32px; }
-h2 { margin-bottom: 30px; }
-h3 { margin-bottom: 24px; }
-h4 { margin-bottom: 20px; }
-h5 { margin-bottom: 18px; }
-h6 { margin-bottom: 11px; }
+section #album { margin-right: 2em !important; }
+section #upload { margin-right: 2em !important; }
+section #myguests { margin-right: 2em !important; }
 
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: right;
-    background: #999999;
-}
-
-footer p {
-    padding: 10px;
-    margin: 0;
-}
+footer { position: fixed; left: 0; bottom: 0; width: 100%; text-align: right; background: #999999; }
+footer p { padding: 10px; margin: 0; }
 
 .light-text { font-weight: 300; }
 .heavy-text { font-weight: 700; }
@@ -89,115 +71,161 @@ footer p {
 .blackroom-light a:hover { color: #f78859; }
 
 .login-bg {
-    width: 100%;
-    height: 100vh;
-    padding: 5em 0;
-    font-size: 16px;
-    background: url(../images/login-bg.jpg) no-repeat bottom center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+	width: 100%;
+	height: 100vh;
+	padding: 5em 0;
+	font-size: 16px;
+	background: url(../images/login-bg.jpg) no-repeat bottom center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .login-header {
-    margin-bottom: 3em;
+	margin-bottom: 3em;
 }
 
 .btn-blackroom {
-    margin-top: 1em;
-    background-color: #f78859;
-    border-color: #f76159;
-    color: #fff;
+	margin-top: 1em;
+	background-color: #f78859;
+	border-color: #f76159;
+	color: #fff;
 }
 
 .login-bg .btn-blackroom  {
-    width: 100%;
+	width: 100%;
 }
 
 .login-bg p {
-    padding-top: 2em;
+	padding-top: 2em;
 }
 
 .breadcrumb { 
 }
 
 .page-content {
-    padding-top: 60px;
-    margin-left: 200px;
+	padding-top: 60px;
+	margin-left: 200px;
 }
 
 .main-upload {
-    height: 40%;
+	height: 40%;
 }
 
 .main-galery {
-    height: 30%;
+	height: 30%;
 }
 
 /** side bar */
 
 .sidebar-nav {
-    position: absolute;
-    top: 60px;
-    width: 180px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+	position: absolute;
+	top: 60px;
+	width: 180px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+	text-indent: 20px;
+	line-height: 40px;
 }
 
 .sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #303030;
+	display: block;
+	text-decoration: none;
+	color: #303030;
 }
 
 .sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #f78859;
-    background: #EAEAEA;
+	text-decoration: none;
+	color: #f78859;
+	background: #EAEAEA;
 }
 
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
-    text-decoration: none;
-    color: #f78859;
-    background: #EAEAEA;
+	text-decoration: none;
+	color: #f78859;
+	background: #EAEAEA;
 }
 
 
 .animate-enter {
-    -webkit-transition: 1s linear all;
-    transition: 1s linear all;
-    opacity: 0;
+	-webkit-transition: 1s linear all;
+	transition: 1s linear all;
+	opacity: 0;
 }
  
 .animate-enter.animate-enter-active {
-    opacity: 1;
+	opacity: 1;
 }
 
 .drop-box {
-    background: #F8F8F8;
-    border: 5px dashed #DDD;
-    height: 200px;
-    text-align: center;
-    padding-top: 25px;
-    margin: 10px;
+	height: 250px;
+	background: #EAEAEA;
+	border: 5px dashed #DDD;
+	text-align: center;
+	padding-top: 25px;
+	margin: 10px;
 }
 
 .dragover {
-    border: 5px dashed blue;
+	border: 5px dashed;
+}
+
+.drop-title {
+	padding: 1.3em 0;
+}
+
+.drop-title small {
+	font-size: 20px;
 }
 
 #upload img {
-    width: 120px;
+	width: 120px;
+}
+
+#image-list {
+	padding-bottom: 5em;
 }
 
 .loading {
-    background: url("../images/loader.gif") no-repeat fixed center;
+	background: url("../images/loader.gif") no-repeat fixed center;
+}
+
+.guest-bg {
+	width: 100%;
+	height: 100vh;
+	padding: 5em 0;
+	font-size: 16px;
+	overflow: hidden;
+	background: url(../images/guest-bg.jpg) no-repeat bottom center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.guest-content {
+	height: 100%;
+	padding: 25px;
+	overflow: auto;
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.guest-content img {
+	width: 100%;
+}
+
+.guest-content ul {
+	list-style-type: none;
+	margin: 0;
+}
+
+.guest-content li {
+	padding: 25px;
 }

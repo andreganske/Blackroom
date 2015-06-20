@@ -44,5 +44,6 @@ angular.module('blackroom')
             $rootScope.authenticated = false;
             $location.path('login');
         });
-    }
+    };
+
 });

@@ -1,0 +1,14 @@
+<section class="container-fluid guest-bg" id="guest" ng-init="initGuest()">
+
+	<div class="col-md-10 col-md-offset-1 guest-content">
+		<div class="row">
+			<h3>Bem vindo à area restrita do Blackroom! <br><small>Você foi convidado por {{userhost.name}}</small></h3>
+	
+			<div class="col-md-12 table-responsive">
+				<ul>
+					<li ng-repeat="photo in photos | filter:q as results" class="col-md-4"><img src="{{photo.path}}"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
